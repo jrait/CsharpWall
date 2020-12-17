@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-left">
+    <h1 class="display-4">Welcome @ViewBag.User.FirstName</h1>
+
+<partial name = "MessageForm"/>
+@foreach(Message m in ViewBag.Messages)
+{
+    <h5>@m.Creator.FirstName @m.Creator.LastName - @m.CreatedAt</h5>
+    <p>@m.content</p>
+    if(ViewBag.User.UserID == m.UserID && DateTime.Now.Subtract(m.CreatedAt).Minutes<30)
+    {
+        <a class = "btn btn-danger m-2" href = "/delete/@m.MessageID">Delete</a>
+    }
+    @foreach(Comment c in ViewBag.Comments)
+    {
+        if(c.MessageID == m.MessageID)
+        {
+            <p><span class = "text-info">@c.User.FirstName @c.User.LastName - @c.CreatedAt</span> :  @c.Content</p>
+        }
+    }
+    @model Comment
+    <form asp-action = "SendComment" asp-controller="Home">
+        <input type = "hidden" value = "@m.MessageID" name = "MessageID">
+        <textarea class = "comment" asp-for = "Content"></textarea>
+        <span asp-validation-for = "Content"></span>
+        <input type = "submit" value = "Post Comment" class = "btn btn-success m-2">
+    </form>
+}
+
+</div>

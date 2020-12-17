@@ -1,0 +1,7 @@
+﻿@model Message
+<form asp-action = "SendMessage" asp-controller = "Home">
+    <label asp-for = "content"></label>
+    <textarea class = "message" asp-for = "content"></textarea>
+    <span asp-validation-for = "content"></span>
+    <input type = "submit" value = "Send Message" class = "btn btn-primary m-3">
+</form>

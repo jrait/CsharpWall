@@ -1,0 +1,7 @@
+@model Comment
+<form asp-action = "SendComment" asp-controller="Home">
+    <input type = "hidden" value = "@ViewBag.MessageID" name = "MessageID">
+    <textarea class = "comment" asp-for = "Content"></textarea>
+    <span asp-validation-for = "Content"></span>
+    <input type = "submit" value = "Post Comment" class = "btn btn-success m-2">
+</form>
